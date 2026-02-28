@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>"{{ query }}" бойынша іздеу нәтижелері</h2>
+    <hr>
+
+    {% if results %}
+        <div class="row">
+            {% for post in results %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    {% if post.image %}
+                    <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ post.title }}</h5>
+                        <p class="card-text">{{ post.content|truncatewords:15 }}</p>
+                        <a href="{% url 'read_news' post.pk %}" class="btn btn-dark">Оқу</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-warning mt-4" role="alert">
+            Кешіріңіз, сіздің сұранысыңыз бойынша ештеңе табылмады. Басқа сөздермен көріңіз.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

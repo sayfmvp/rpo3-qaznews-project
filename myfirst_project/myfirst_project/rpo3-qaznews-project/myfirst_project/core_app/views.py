@@ -1,11 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Post, Category, Ad
 import random
-from django.shortcuts import render, get_object_or_404, redirect # redirect қосылды
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import login, logout, authenticate
-from .models import Post, Category, Ad
-import random
 
 def index(request):
     # Соңғы 4 жазба
@@ -49,33 +44,3 @@ def search(request):
         results = []
     
     return render(request, 'search_results.html', {'results': results, 'query': query})
-
-def register_view(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            user.is_staff = True  # Админ панельге кіруге рұқсат беру (қалауыңызша)
-            user.save()
-            login(request, user)
-            return redirect('index') # Тіркелген соң басты бетке жіберу
-    else:
-        form = UserCreationForm()
-    return render(request, 'register.html', {'form': form})
-
-# Жүйеге кіру функциясы
-def login_view(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('home')
-    else:
-        form = AuthenticationForm()
-    return render(request, 'login.html', {'form': form})
-
-# Жүйеден шығу
-def logout_view(request):
-    logout(request)
-    return redirect('home')

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <title>Тіркелу</title>
+</head>
+<body>
+    <h2>Жаңа пайдаланушыны тіркеу</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Тіркелу</button>
+    </form>
+    <p>Аккаунтыңыз бар ма? <a href="{% url 'login' %}">Кіру</a></p>
+    <hr>
+    <a href="{% url 'home' %}">Басты бетке қайту</a>
+</body>
+</html>

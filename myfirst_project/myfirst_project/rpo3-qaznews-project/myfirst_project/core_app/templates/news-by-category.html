@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Басты бет</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ category.name }}</li>
+      </ol>
+    </nav>
+
+    <h2 class="mb-4">Санат: <span class="text-primary">{{ category.name }}</span></h2>
+    <hr>
+
+    <div class="row">
+        {% for post in posts %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm border-0">
+                    {% if post.image %}
+                        <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}" style="height: 200px; object-fit: cover;">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">{{ post.title }}</h5>
+                        <p class="card-text text-muted">{{ post.content|truncatewords:15 }}</p>
+                    </div>
+                    <div class="card-footer bg-white border-top-0">
+                        <a href="{% url 'read_news' post.pk %}" class="btn btn-outline-dark w-100">Толығырақ оқу</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12 text-center mt-5">
+                <h4 class="text-secondary">Бұл санатта әзірге жаңалықтар жарияланбаған.</h4>
+                <a href="{% url 'home' %}" class="btn btn-primary mt-3">Басты бетке қайту</a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Барлық жаңалықтар</h2>
+    
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="row">
+                {% for post in posts %}
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        {% if post.image %}
+                        <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}" style="height: 200px; object-fit: cover;">
+                        {% endif %}
+                        <div class="card-body">
+                            <span class="badge bg-primary mb-2">{{ post.category.name }}</span>
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text text-muted">{{ post.content|truncatewords:20 }}</p>
+                            <a href="{% url 'read_news' post.pk %}" class="btn btn-dark">Оқу</a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p>Әзірге жаңалықтар жоқ.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+            <h4 class="mb-3">Жарнама</h4>
+            {% for ad in ads %}
+            <div class="card mb-3 border-dashed">
+                {% if ad.image %}
+                <img src="{{ ad.image.url }}" class="card-img-top" alt="Ad">
+                {% endif %}
+                <div class="card-body p-2 text-center">
+                    <small class="text-secondary">{{ ad.title }}</small>
+                </div>
+
+                
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<style>
+    .border-dashed {
+        border: 1px dashed #ccc;
+    }
+</style>
+{% endblock %}
