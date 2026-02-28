@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2 class="mb-4">Соңғы жаңалықтар</h2>
+    <div class="row">
+        {% for post in latest_posts %}
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="{{ post.image.url }}" class="card-img-top" style="height: 250px; object-fit: cover;">
+                <div class="card-body">
+                    <span class="badge bg-primary mb-2">{{ post.category.name }}</span>
+                    <h4 class="card-title">{{ post.title }}</h4>
+                    <p class="card-text text-muted">{{ post.content|truncatewords:20 }}</p>
+                    <a href="{% url 'read_news' post.pk %}" class="btn btn-dark">Оқу</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <hr class="my-5">
+
+    <h3>Кездейсоқ жазбалар</h3>
+    <div class="row">
+        {% for post in random_posts %}
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h6 class="card-title">{{ post.title }}</h6>
+                    <a href="{% url 'read_news' post.id %}" class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="row mt-5">
+        {% for ad in ads %}
+        <div class="col-md-3">
+            <div class="ad-banner">
+                <p class="small text-uppercase">Жарнама</p>
+                <a href="{{ ad.url }}"><img src="{{ ad.image.url }}" class="img-fluid" alt="ad"></a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,5 @@
+PyCharm 2025.3.3/
+venv/
+.idea/
+__pycache__/
+*.pyc
