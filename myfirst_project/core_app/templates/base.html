@@ -38,7 +38,7 @@
 
                <div class="d-flex align-items-center">
                     {% if user.is_authenticated %}
-                        <span class="user-name me-3" style="color: #ffca28;">👤 {{ user.username }}</span>
+                        <span class="user-name me-3" style="color: #ffca28;"> {{ user.username }}</span>
                         
                         {% if user.is_staff %}
                             <a href="/admin" class="btn btn-sm btn-warning me-2 fw-bold">Админ</a>
