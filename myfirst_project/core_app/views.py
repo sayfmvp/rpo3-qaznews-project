@@ -55,22 +55,20 @@ def register_view(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            user.is_staff = True  # Админ панельге кіруге рұқсат беру (қалауыңызша)
-            user.save()
+            # user.is_staff = True  <- Бұл жерді абайлап қолданыңыз
             login(request, user)
-            return redirect('index') # Тіркелген соң басты бетке жіберу
+            return redirect('home') # 'index' емес, 'home' (urls.py-дағы name бойынша)
     else:
         form = UserCreationForm()
     return render(request, 'register.html', {'form': form})
 
-# Жүйеге кіру функциясы
 def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('home')
+            return redirect('home') # Осы жер дұрыс
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
